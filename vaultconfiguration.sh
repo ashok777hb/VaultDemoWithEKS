@@ -1,3 +1,10 @@
+********************Unseal Vault**********************
+
+vault operator unseal 0ECTrSYfTgQBfRAsyR77d1ctJskyyFjJDeWu+yvc+clD
+vault operator unseal 0ECTrSYfTgQBfRAsyR77d1ctJskyyFjJDeWu+yvc+clD
+vault operator unseal S4aI0jwrsShUZR4TSDdRQ1sFRObw8rWCu8zUBskgtf9W
+
+*******************Create Cassandra secrets for connection*****************************
 vault secrets enable database
 
 vault write database/config/my-cassandra-database \
