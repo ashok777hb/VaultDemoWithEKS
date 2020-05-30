@@ -17,3 +17,5 @@
 3. Create Dashboard for EKS Cluster by following below link.
     
     https://github.com/awsdocs/amazon-eks-user-guide/blob/master/doc_source/dashboard-tutorial.md
+    
+4. Create Service account for our deployments.
