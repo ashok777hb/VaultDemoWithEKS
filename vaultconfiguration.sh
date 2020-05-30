@@ -14,3 +14,10 @@ vault write database/config/my-cassandra-database \
     username=cassandra \
     password=cassandra \
     allowed_roles=my-role
+    
+vault write database/roles/my-role \
+    db_name=my-cassandra-database \
+    creation_statements="CREATE USER '{{username}}' WITH PASSWORD '{{password}}' NOSUPERUSER; \
+          GRANT SELECT ON ALL KEYSPACES TO {{username}};" \
+    default_ttl="1h" \
+    max_ttl="24h"
