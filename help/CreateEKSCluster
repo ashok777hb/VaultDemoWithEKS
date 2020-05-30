@@ -1,0 +1,55 @@
+1. Install eksctl
+
+2. Create EKS cluster by using below command.
+
+    eksctl create cluster \
+    --name test-eks-ashok \
+    --version 1.16 \
+    --region us-east-1 \
+    --nodegroup-name standard-workers \
+    --node-type t2.micro \
+    --nodes 4 \
+    --nodes-min 4 \
+    --nodes-max 6 \
+    --managed
+  
+  
+3. Create Dashboard for EKS Cluster by following below link.
+    
+    https://github.com/awsdocs/amazon-eks-user-guide/blob/master/doc_source/dashboard-tutorial.md
+    
+4. Create Service account for our deployments.
+
+    kubectl apply -f ./config/account.yaml
+
+5. Provide permission to our account.
+
+    kubectl apply -f ./config/setaccount_permission.yaml
+
+6. Get account token from kubernate dashboard.
+
+7. Get account certificate from kubernate dashboard.
+
+8. Connect to vault server and configure vault for connecting to kubernate cluster.
+
+    vault write auth/kubernetes/config \
+        token_reviewer_jwt="<AccountToken>" \
+        kubernetes_host="<EKSCluster API end point>:443" \
+        kubernetes_ca_cert="<Account certificate>"
+
+9. Create policy on vault for kubernate.
+
+    vault policy write webapp - <<EOF
+    path "secret/*" {
+    capabilities = ["read"]
+    }
+    EOF
+
+10. Create role on vault for kubernate.
+
+    vault write auth/kubernetes/role/webapp \
+        bound_service_account_names=admin-account \
+        bound_service_account_namespaces=kube-system \
+        policies=webapp \
+        ttl=24h
+
