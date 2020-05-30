@@ -1,0 +1,15 @@
+1. Login to aws eks image registry.
+    
+    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 749029227687.dkr.ecr.us-east-1.amazonaws.com
+
+2. Build docker image locally.
+    
+    docker build -f ./app/Dockerfile -t vault .
+
+3. Tag docker image with latest tag.
+
+    docker tag vault:latest 749029227687.dkr.ecr.us-east-1.amazonaws.com/vault:latest
+
+4. Push image to aws registry.
+
+    docker push 749029227687.dkr.ecr.us-east-1.amazonaws.com/vault:latest

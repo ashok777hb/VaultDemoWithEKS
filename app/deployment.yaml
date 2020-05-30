@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: vault-service
+  namespace: kube-system
+  labels:
+    run: vault
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+spec:
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5000
+      nodePort: 30124
+  selector:
+    run: vault
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+         app: vault   
+  template:
+    metadata:
+      labels:
+        app: vault          
+    spec:
+      serviceAccountName: admin-account
+      containers:
+      - name: vault
+        image: 749029227687.dkr.ecr.us-east-1.amazonaws.com/vault:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000       
