@@ -36,26 +36,35 @@
 
     sudo systemctl status vault
     
-*******************UnSeal Vault with below commands*************
+8. Unseal vault service
 
-vault operator unseal 0ECTrSYfTgQBfRAsyR77d1ctJskyyFjJDeWu+yvc+clD
-vault operator unseal 0ECTrSYfTgQBfRAsyR77d1ctJskyyFjJDeWu+yvc+clD
-vault operator unseal S4aI0jwrsShUZR4TSDdRQ1sFRObw8rWCu8zUBskgtf9W
+    vault operator unseal 0ECTrSYfTgQBfRAsyR77d1ctJskyyFjJDeWu+yvc+clD
+    vault operator unseal 0ECTrSYfTgQBfRAsyR77d1ctJskyyFjJDeWu+yvc+clD
+    vault operator unseal S4aI0jwrsShUZR4TSDdRQ1sFRObw8rWCu8zUBskgtf9W
 
-*******************Create Cassandra secrets for connection*****************************
-vault secrets enable database
-
-vault write database/config/my-cassandra-database \
+9. Enable database secrets for vault.
+    
+    vault secrets enable database
+    
+10. Add cassandra db information to vault.
+    
+    vault write database/config/my-cassandra-database \
     plugin_name="cassandra-database-plugin" \
     hosts=100.25.10.11\
     protocol_version=4 \
     username=cassandra \
     password=cassandra \
     allowed_roles=my-role
+
+11. Create vault role for cassandra database.
     
-vault write database/roles/my-role \
+    vault write database/roles/my-role \
     db_name=my-cassandra-database \
     creation_statements="CREATE USER '{{username}}' WITH PASSWORD '{{password}}' NOSUPERUSER; \
           GRANT SELECT ON ALL KEYSPACES TO {{username}};" \
     default_ttl="1h" \
     max_ttl="24h"
+
+
+    
+
