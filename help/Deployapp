@@ -16,5 +16,4 @@
     
 5. Deploy latest docker image.
     
-    kubectl run vault --image=749029227687.dkr.ecr.us-east-1.amazonaws.com/vault:latest
-    kubectl expose deployment vault --port=5001 --type=LoadBalancer --target-port=5000
+    kubectl expose deployment vault --port=5001 --type=LoadBalancer --target-port=5000 -n kube-system
