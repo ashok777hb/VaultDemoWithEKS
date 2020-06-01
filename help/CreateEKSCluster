@@ -18,8 +18,15 @@
     
     https://github.com/awsdocs/amazon-eks-user-guide/blob/master/doc_source/dashboard-tutorial.md
     
+    Login url for Dashboard.
+    
+    kubectl proxy
+    http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/deployment?namespace=_all
+    
     Get token command
     kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+    
+    
     
 4. Create Service account for our deployments.
 
@@ -29,9 +36,11 @@
 
     kubectl apply -f ./config/setaccount_permission.yaml
 
-6. Get account token from kubernate dashboard.
+6. Get admin account token from kubernate dashboard.
 
-7. Get account certificate from kubernate dashboard.
+7. Get admin account certificate from kubernate dashboard.
+
+Execute below commands on vault server:
 
 8. Connect to vault server and configure vault for connecting to kubernate cluster.
 
