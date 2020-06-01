@@ -1,23 +1,8 @@
-kind: Service
 apiVersion: v1
+kind: ServiceAccount
 metadata:
-  name: vault-service
+  name: admin-account1
   namespace: kube-system
-  labels:
-    run: vault
-  finalizers:
-    - service.kubernetes.io/load-balancer-cleanup
-spec:
-  ports:
-    - protocol: TCP
-      port: 5001
-      targetPort: 5000
-      nodePort: 30124
-  selector:
-    run: vault
-  type: LoadBalancer
-  sessionAffinity: None
-  externalTrafficPolicy: Cluster
 
 ---
 apiVersion: apps/v1

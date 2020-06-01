@@ -33,17 +33,34 @@
 8. Connect to vault server and configure vault for connecting to kubernate cluster.
 
     vault write auth/kubernetes/config \
-        token_reviewer_jwt="<AccountToken>" \
-        kubernetes_host="<EKSCluster API end point>:443" \
-        kubernetes_ca_cert="<Account certificate>"
+        token_reviewer_jwt="eyJhbGciOiJSUzI1NiIsImtpZCI6InM0LW9veUpxalY4LVI4VUNRSlFCMnlRUnV6VENlMW83U0ZmZ2hiTVplWmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi1hY2NvdW50LXRva2VuLWJudHJ3Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLWFjY291bnQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI0ZGYwN2MzNC1kOTc0LTQzODQtOGJjMC01NGM5ZGIzYjJlZWIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tYWNjb3VudCJ9.XEIlqZ8bJ1qCMuMhuvc2zk1Yr1my6uUiP2lBVrTacPMIMz2Nc4_Mu4d6X4OavMVy2LMcAjATbbRI3MKias6DGOTtF6eGvlTjWytu-4Td3UXkYwAhANtqOC5RosWIZXMXmrDjROT2c0-Io1F0XV88sdoQTIA8j1fWrA1HdhIHuTMPk-C9c0gi9N0dSxP0ar16npei7oZtfrgIRlcC4eFJ2PnL00A4yKaolDgVDCVjfp3IEBBMa9ZaqoNh1YlN0OWSciO-0E31JMcE7GbEk9snqut2Bt36aQSYVFsVlKsVUR7NwJBKC-1Pf9_mOn-m_ugg6U3AC3rfYJ3X1dhBGEDKBA" \
+        kubernetes_host="https://F5A1D0F45B68134276B07E11DFD67448.gr7.us-east-1.eks.amazonaws.com:443" \
+        kubernetes_ca_cert="-----BEGIN CERTIFICATE-----
+MIICyDCCAbCgAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+cm5ldGVzMB4XDTIwMDUzMTE0NTg1M1oXDTMwMDUyOTE0NTg1M1owFTETMBEGA1UE
+AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJd9
+51a4C0gZNNpoeaQpzaCh21cDev3lxXm5SF60lR/mMpQrKPyHC7P8BHWIPFs252Fi
+gzlSg+L8VOsI8+bTg4eraQNFGCA0rjjxlXAuL6Tjv1g2/fWZTxAjkrydB1hqIVl8
+FTCAeYZLjLJYWHcS+ZD9Gf/VJzxWEs1Ed85/cpxDXPWoY4o1bgrmkzzg7XNRthOJ
+DykeoXKx3DA7OfliUNrH4EtUG2bvJH0KONnEX9OT25EeUHaKhotTdqqIzR+YWu5r
+lCXu0tAiqUaIwVPvq5v1H5KEONp4b/uWOW6saHfE017KaQm2dKBTdPdJuWddcjS9
+IASH4Cc/cfx93SlSYw0CAwEAAaMjMCEwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFU7E3+tPR8cBsaYH5130w0zTaRS
+7vqY7v0ooyztRQymbHAD6Xbto0bOOsZem/MVknnBd9BoMEOHNelyuDxNAMQEGO5c
+Q0UQ533gmR1s/lMrXG2Tpqb+mDE7sA3OWIGeKZuOLiyuHk+K71HNX174t7OlPvlS
+LNkbdYEwx4EdPLKSfrQoDyAc595uTV3KymyGzZ7SNiMb9MpBD7f/wjcCVs58kCqp
+qjXTpjvW5adtICCsP7YT6iniJ90CSVVt7fABF8PEJWRMonI0vTNVSJHy/TIntSOo
+nBzxux145qHY9y6hisXCmQAdeudtQqGz3i+bxjKJpFeET8zJko3j63q5veY=
+-----END CERTIFICATE-----"
 
 9. Create policy on vault for kubernate.
 
-    vault policy write webapp - <<EOF
-    path "secret/*" {
-    capabilities = ["read"]
-    }
-    EOF
+vault policy write webapp - <<EOF
+path "database/*" {
+  capabilities = ["read"]
+}
+EOF
+
 
 10. Create role on vault for kubernate.
 

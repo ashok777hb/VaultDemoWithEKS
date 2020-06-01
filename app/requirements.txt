@@ -1,2 +1,3 @@
 Flask
 hvac
+cassandra-driver
