@@ -18,6 +18,9 @@
     
     https://github.com/awsdocs/amazon-eks-user-guide/blob/master/doc_source/dashboard-tutorial.md
     
+    Get token command
+    kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+    
 4. Create Service account for our deployments.
 
     kubectl apply -f ./config/account.yaml
